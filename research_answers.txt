@@ -1,0 +1,7 @@
+Question 1
+
+HTTP is a stateless protocol, which means it does not remember information between requests. Web applications preserve state using sessions and authentication. A session stores information about a user on the server and provides the browser with a unique session ID through a cookie. When the user makes another request, the session ID is sent back to the server so the application can identify the user and remember information such as login status, preferences, or data entered previously. Authentication works with sessions to verify a user's identity and control access to secure parts of the application.
+
+Question 2
+
+Django migrations are used to keep the database structure in sync with the application's models. When a model is created or modified, the makemigrations command generates migration files that describe the changes. The migrate command then applies those changes to the database. When using a server database such as MariaDB, migrations ensure that tables, columns, and relationships are created and updated consistently. This makes database changes easier to manage, track, and deploy across different environments.
