@@ -3,10 +3,12 @@ from .models import Note
 from .forms import NoteForm
 
 def note_list(request):
+    """Display all notes."""
     notes = Note.objects.all()
     return render(request, 'notes/note_list.html', {'notes': notes})
 
 def note_create(request):
+    """Create a new note."""
     form = NoteForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -14,6 +16,7 @@ def note_create(request):
     return render(request, 'notes/note_form.html', {'form': form})
 
 def note_update(request, pk):
+    """Update an existing note."""
     note = get_object_or_404(Note, pk=pk)
     form = NoteForm(request.POST or None, instance=note)
     if form.is_valid():
@@ -22,6 +25,7 @@ def note_update(request, pk):
     return render(request, 'notes/note_form.html', {'form': form})
 
 def note_delete(request, pk):
+    """Delete a note."""
     note = get_object_or_404(Note, pk=pk)
     if request.method == 'POST':
         note.delete()
