@@ -29,3 +29,33 @@ class NoteViewTest(TestCase):
 
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Note.objects.count(), 1)
+
+    def test_update_note(self):
+        """Test that an existing note can be updated."""
+        note = Note.objects.create(
+            title="Old Title",
+            content="Old content"
+        )
+
+        response = self.client.post(f'/update/{note.id}/', {
+            'title': 'Updated Title',
+            'content': 'Updated content'
+        })
+
+        note.refresh_from_db()
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(note.title, 'Updated Title')
+        self.assertEqual(note.content, 'Updated content')
+
+    def test_delete_note(self):
+        """Test that an existing note can be deleted."""
+        note = Note.objects.create(
+            title="Delete Me",
+            content="This note will be deleted"
+        )
+
+        response = self.client.post(f'/delete/{note.id}/')
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Note.objects.count(), 0)
